@@ -6,12 +6,12 @@ function Question({ question, onAnswered }) {
   // add useEffect code
   useEffect(() => {
     function handleCountdown() {
-      setTimeRemaining(prevTime => {
+      setTimeRemaining((prevTime) => {
         if (prevTime > 1) {
           setTimeout(handleCountdown, 1000);
           return prevTime - 1;
         } else {
-          onAnswered(false);
+          setTimeout(() => onAnswered(false), 0);
           return 10;
         }
       });
@@ -21,7 +21,7 @@ function Question({ question, onAnswered }) {
     return () => {
       clearTimeout(initialTimeout);
     };
-  }, [question.id]);  // Only re-run effect if the question changes
+  }, [question.id]);
 
   function handleAnswer(isCorrect) {
     setTimeRemaining(10);
